@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
+    'coreapi',
 ]
 
 MIDDLEWARE = [
@@ -140,7 +141,8 @@ if DEBUG:
         ),
         'DEFAULT_PERMISSION_CLASSES': (
             'accounts.permissions.IsLogedInUserOrAdmin',
-        )
+        ),
+        'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     }
 
 if not DEBUG:
@@ -151,7 +153,8 @@ if not DEBUG:
         'DEFAULT_PERMISSION_CLASSES': (
             'rest_framework.permissions.IsAuthenticated',
             'base.permissions.UserTaskPermission',
-        )
+        ),
+        'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     }
 
 REST_USE_JWT =  True
