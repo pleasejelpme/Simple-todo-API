@@ -3,9 +3,8 @@ from rest_framework.generics import (
     RetrieveUpdateDestroyAPIView
 )
 from rest_framework import permissions
-
+from accounts.permissions import IsLogedInUserOrAdmin, IsAdminUser
 from .serializers import TaskSerializer
-from .permissions import UserTaskPermission
 from .models import Task
 
 
@@ -16,6 +15,12 @@ class TaskListCreateAPIView(ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+    
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_staff:
+            return Task.objects.all()
+        return Task.objects.filter(user=user)
 
 
 
@@ -23,4 +28,3 @@ class TaskListCreateAPIView(ListCreateAPIView):
 class TaskDetailAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly, UserTaskPermission]

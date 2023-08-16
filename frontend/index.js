@@ -8,7 +8,7 @@ if (loginForm){
         let logiFormData = new FormData(loginForm)
         let loginObjectData = Object.fromEntries(logiFormData)
   
-        const loginEndpoint = `${apiEndpoint}/token/`
+        const loginEndpoint = `${apiEndpoint}/login/`
         const options = {
             method: 'POST',
             headers: {
@@ -27,11 +27,14 @@ if (loginForm){
             localStorage.setItem('access', data.access)
             localStorage.setItem('refresh', data.refresh)
         })
-        
+
+        .then(getTasks())
+
         .catch(error => console.log(error))
         
     })
 }
+
 
 function getTasks(){
     const endpoint = `${apiEndpoint}/tasks/`
@@ -39,13 +42,14 @@ function getTasks(){
     fetch(endpoint, {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('access')}`
         }
     })
     .then(response => response.json())
     .then(data => {
         if (tasksList){
-            tasksList.innerHTML = `<pre>${JSON.stringify(data)}</pre>`
+            tasksList.innerHTML = `<pre>${JSON.stringify(data, null, 4)}</pre>`
         }
     })
 }

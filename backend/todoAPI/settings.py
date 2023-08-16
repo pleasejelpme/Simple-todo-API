@@ -136,10 +136,10 @@ if DEBUG:
         'DEFAULT_AUTHENTICATION_CLASSES': (
             'rest_framework_simplejwt.authentication.JWTAuthentication',
             'rest_framework.authentication.SessionAuthentication',
+            'rest_framework.authentication.BasicAuthentication',
         ),
         'DEFAULT_PERMISSION_CLASSES': (
-            'rest_framework.permissions.IsAuthenticated',
-            'base.permissions.UserTaskPermission',
+            'accounts.permissions.IsLogedInUserOrAdmin',
         )
     }
 
@@ -153,6 +153,8 @@ if not DEBUG:
             'base.permissions.UserTaskPermission',
         )
     }
+
+REST_USE_JWT =  True
 
 
 #########################
