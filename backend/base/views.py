@@ -2,8 +2,8 @@ from rest_framework.generics import (
     ListCreateAPIView,
     RetrieveUpdateDestroyAPIView
 )
-from rest_framework import permissions
-from accounts.permissions import IsLogedInUserOrAdmin, IsAdminUser
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
 from .serializers import TaskSerializer
 from .models import Task
 
@@ -15,13 +15,13 @@ class TaskListCreateAPIView(ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-    
+
     def get_queryset(self):
         user = self.request.user
+
         if user.is_staff:
             return Task.objects.all()
         return Task.objects.filter(user=user)
-
 
 
 # Detail, Update and Delete

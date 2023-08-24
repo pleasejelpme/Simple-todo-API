@@ -1,0 +1,95 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  height: 100vh;
+}
+
+nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+nav .links {
+  width: 20%;
+  display: flex;
+  justify-content: space-around;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.task {
+  height: 75px;
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.task .task-info {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.task .options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.task .options .delete{
+  width: 75px;
+}
+
+.task .options .delete:hover{
+  filter: drop-shadow(0 0 0.3rem crimson);
+}
+
+.task .options .edit:hover{
+  filter: drop-shadow(0 0 0.3rem #646cffaa);
+}
+
+
+
+.task .options .edit{
+  width: 75px;
+}
+
+.task:hover {
+  box-shadow: 0 0 2em #646cffaa;
+  cursor: pointer;
+}

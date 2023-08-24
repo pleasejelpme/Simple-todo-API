@@ -21,6 +21,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost']
 
+LOGIN_URL = 'http://localhost:8000/api/login/'
+
 
 # Application definition
 
@@ -46,7 +48,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware', # Django Cors Middleware
+    'corsheaders.middleware.CorsMiddleware',  # Django Cors Middleware
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -137,12 +139,13 @@ if DEBUG:
         'DEFAULT_AUTHENTICATION_CLASSES': (
             'rest_framework_simplejwt.authentication.JWTAuthentication',
             'rest_framework.authentication.SessionAuthentication',
-            'rest_framework.authentication.BasicAuthentication',
         ),
         'DEFAULT_PERMISSION_CLASSES': (
             'accounts.permissions.IsLogedInUserOrAdmin',
         ),
-        'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+        'DEFAULT_SCHEMA_CLASS': (
+            'rest_framework.schemas.coreapi.AutoSchema',
+        )
     }
 
 if not DEBUG:
@@ -157,7 +160,7 @@ if not DEBUG:
         'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     }
 
-REST_USE_JWT =  True
+REST_USE_JWT = True
 
 
 #########################
@@ -175,7 +178,7 @@ if DEBUG:
 #######################
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=10),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=90),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
